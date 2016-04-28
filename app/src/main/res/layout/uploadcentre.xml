@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Upload File"
+        android:id="@+id/txtHead"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="41dp"
+        android:textSize="24dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SELECT FILE"
+        android:id="@+id/btnSelect"
+        android:layout_below="@+id/txtHead"
+        android:layout_alignEnd="@+id/txtHead"
+        android:layout_marginTop="73dp"
+        android:textSize="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/txtFile"
+        android:layout_below="@+id/btnSelect"
+        android:layout_alignStart="@+id/btnSelect"
+        android:layout_marginTop="54dp"
+        android:textSize="18dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upload"
+        android:id="@+id/btnUpload"
+        android:layout_marginTop="73dp"
+        android:layout_below="@+id/txtFile"
+        android:layout_centerHorizontal="true"
+        android:textSize="16dp" />
+
+</RelativeLayout>
