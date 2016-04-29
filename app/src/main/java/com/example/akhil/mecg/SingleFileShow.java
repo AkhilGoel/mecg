@@ -12,6 +12,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -52,6 +53,7 @@ public class SingleFileShow extends Activity {
     Button btnDown,btnPl,btnAnalyse;
     ParseFile file;
     ans mAns;
+    DownloadFileAsync mDownload;
     public static final int DIALOG_DOWNLOAD_PROGRESS = 0;
     private ProgressDialog mProgressDialog;
 
@@ -80,7 +82,8 @@ public class SingleFileShow extends Activity {
                     for (ParseObject obj : ob)
                         file = (ParseFile) obj.get("Data");
                     String url = file.getUrl();
-                    new DownloadFileAsync().execute(url);
+                    mDownload = new DownloadFileAsync();
+                    mDownload.execute(url);
 
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -102,27 +105,30 @@ public class SingleFileShow extends Activity {
         });
     }
 
-    @Override
-    protected Dialog onCreateDialog(int id) {
-        switch (id) {
-            case DIALOG_DOWNLOAD_PROGRESS:
-                mProgressDialog = new ProgressDialog(this);
-                mProgressDialog.setMessage("Downloading file..");
-                mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-                mProgressDialog.setCancelable(false);
-                mProgressDialog.show();
-                return mProgressDialog;
-            default:
-                return null;
-        }
-    }
-
     class DownloadFileAsync extends AsyncTask<String, String, String> {
+        private ProgressDialog mProgressDialog;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            showDialog(DIALOG_DOWNLOAD_PROGRESS);
+            mProgressDialog = new ProgressDialog(SingleFileShow.this){
+                @Override
+                public boolean onKeyDown(int keyCode, KeyEvent event) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK) {
+                        mDownload.cancel(true);
+                        this.dismiss();
+                        onPostResume();
+                        return true;
+                    }
+                    return super.onKeyDown(keyCode, event);
+                }
+            };
+            mProgressDialog.setTitle("Downloading File");
+            mProgressDialog.setMessage("Downloading...");
+            mProgressDialog.setIndeterminate(false);
+            mProgressDialog.setCancelable(false);
+            mProgressDialog.show();
+
         }
 
         @Override
@@ -159,15 +165,10 @@ public class SingleFileShow extends Activity {
             return null;
 
         }
-
-        protected void onProgressUpdate(String... progress) {
-            Log.d("ANDRO_ASYNC", progress[0]);
-            mProgressDialog.setProgress(Integer.parseInt(progress[0]));
-        }
-
         @Override
         protected void onPostExecute(String unused) {
-            dismissDialog(DIALOG_DOWNLOAD_PROGRESS);
+            mProgressDialog.dismiss();
+            Toast.makeText(SingleFileShow.this,"Download Succesful",Toast.LENGTH_SHORT).show();
         }
     }
 

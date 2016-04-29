@@ -31,9 +31,9 @@ public class AnalysisResult extends Activity{
             heartRate.setText(""+obj.getDouble("Heart Rate"));
             std.setText(""+obj.getDouble("std_dev"));
             variance.setText(""+obj.getDouble("variance"));
-            cv.setText(""+obj.getDouble("cv"));
-            stddiff.setText(""+obj.getDouble("std_dev_diff"));
-            rmsdiff.setText(""+obj.getDouble("rms_diff"));
+            cv.setText("\n"+obj.getDouble("cv"));
+            stddiff.setText("\n"+obj.getDouble("std_dev_diff"));
+            rmsdiff.setText("\n"+obj.getDouble("rms_diff"));
 
         } catch (JSONException e) {
             e.printStackTrace();

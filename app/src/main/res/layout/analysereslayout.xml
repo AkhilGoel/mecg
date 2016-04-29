@@ -90,7 +90,7 @@
                 android:id="@+id/cv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Std. Dev. :"
+                android:text="Coff.of\n Var :"
                 android:textSize="22dp"
                 android:textStyle="bold"
                 />
@@ -98,20 +98,12 @@
                 android:id="@+id/txtCv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0"
+                android:text="\n0"
                 android:textSize="22dp"
                 android:textStyle="bold"
                 android:layout_marginLeft="10dp"
                 />
-            <TextView
-                android:id="@+id/per"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="%"
-                android:layout_marginLeft="10dp"
-                android:textSize="22dp"
-                android:textStyle="bold"
-                />
+
 
         </TableRow>
         <TableRow
