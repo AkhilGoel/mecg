@@ -8,6 +8,8 @@ import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
+
 /**
  * Created by Akhil on 29-04-2016 for Mecg
  */
@@ -23,7 +25,6 @@ public class AnalysisResult extends Activity{
         TextView cv = (TextView) findViewById(R.id.txtCv);
         TextView stddiff = (TextView) findViewById(R.id.txtStdDiff);
         TextView rmsdiff = (TextView) findViewById(R.id.txtRmsDiff);
-
         String res = i.getStringExtra("result");
         try {
             JSONObject obj = new JSONObject(res);

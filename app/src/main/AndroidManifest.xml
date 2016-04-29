@@ -55,6 +55,9 @@
         <activity android:name=".PlotChart"
             android:theme="@style/Base.Theme.AppCompat.Light">
         </activity>
+        <activity android:name=".AnalysisResult"
+            android:theme="@style/AppTheme.Dark">
+        </activity>
     </application>
 
 </manifest>

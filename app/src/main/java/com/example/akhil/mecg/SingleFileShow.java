@@ -195,13 +195,11 @@ public class SingleFileShow extends Activity {
 
                 HttpPost httppost = new HttpPost("https://mecg.herokuapp.com/analyse");
                 MultipartEntity mpEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
+                File file = new File("/storage/sdcard0/download/"+name);
                 if (file !=null) {
-                    File file = new File("/storage/sdcard0/download/"+name);
                     Log.d("EDIT USER PROFILE", "UPLOAD: file length = " + file.length());
                     Log.d("EDIT USER PROFILE", "UPLOAD: file exist = " + file.exists());
                     mpEntity.addPart("file", new FileBody(file));
-
-
                 }
                 httppost.setEntity(mpEntity);
 
