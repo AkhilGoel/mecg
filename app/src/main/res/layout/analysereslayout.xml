@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="70dp"
+        android:layout_marginLeft="10dp">
+
+        <TableRow
+            android:layout_marginBottom="10dp">
+            <TextView
+                android:id="@+id/hr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Heart Rate :"
+                android:textSize="22dp"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:id="@+id/txtHeart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="22dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                />
+            <TextView
+                android:id="@+id/bpm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="bpm"
+                android:layout_marginLeft="10dp"
+                android:textSize="22dp"
+                android:textStyle="bold"
+                />
+
+        </TableRow>
+        <TableRow
+            android:layout_marginBottom="10dp">
+            <TextView
+                android:id="@+id/std"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Std. Dev. :"
+                android:textSize="22dp"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:id="@+id/txtStd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="22dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                />
+
+        </TableRow>
+        <TableRow
+            android:layout_marginBottom="10dp">
+            <TextView
+                android:id="@+id/var"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Variance :"
+                android:textSize="22dp"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:id="@+id/txtVar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="22dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                />
+
+        </TableRow>
+        <TableRow
+            android:layout_marginBottom="10dp">
+            <TextView
+                android:id="@+id/cv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Std. Dev. :"
+                android:textSize="22dp"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:id="@+id/txtCv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="22dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                />
+            <TextView
+                android:id="@+id/per"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="%"
+                android:layout_marginLeft="10dp"
+                android:textSize="22dp"
+                android:textStyle="bold"
+                />
+
+        </TableRow>
+        <TableRow
+            android:layout_marginBottom="10dp">
+            <TextView
+                android:id="@+id/stddiff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Std. Dev.\n of Diff :"
+                android:textSize="22dp"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:id="@+id/txtStdDiff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="\n0"
+                android:textSize="22dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                />
+
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/rmsdiff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RMS \nof Diff :"
+                android:textSize="22dp"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:id="@+id/txtRmsDiff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="\n0"
+                android:textSize="22dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                />
+
+        </TableRow>
+    </TableLayout>
+</RelativeLayout>

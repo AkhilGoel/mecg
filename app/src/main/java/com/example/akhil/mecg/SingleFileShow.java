@@ -8,6 +8,7 @@ import android.content.res.AssetManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,6 +17,15 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -39,9 +49,9 @@ public class SingleFileShow extends Activity {
     String centre;
     String id;
     List<ParseObject> ob;
-    Button btnDown,btnPl;
-    String[] signalDataArr;
+    Button btnDown,btnPl,btnAnalyse;
     ParseFile file;
+    ans mAns;
     public static final int DIALOG_DOWNLOAD_PROGRESS = 0;
     private ProgressDialog mProgressDialog;
 
@@ -59,6 +69,7 @@ public class SingleFileShow extends Activity {
         txtcentre.setText(centre);
         btnDown = (Button) findViewById(R.id.btnDownload);
         btnPl = (Button) findViewById(R.id.btnPlot);
+        btnAnalyse = (Button) findViewById(R.id.btnAnalyse);
         btnDown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,27 +90,14 @@ public class SingleFileShow extends Activity {
         btnPl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Thread(new Runnable() {
-
-                    @Override
-                    public void run() {
-                            runOnUiThread(new Runnable() {
-
-                                @Override
-                                public void run() {
-                                }
-                            });
-
-                            try {
-                                Thread.sleep(35);
-                            } catch (InterruptedException e) {
-                                // TODO Auto-generated catch block
-                                e.printStackTrace();
-                            }
-                        }
-                }).start();
-
-                 plotData();
+                plotData();
+            }
+        });
+        btnAnalyse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAns = new ans();
+                mAns.execute();
             }
         });
     }
@@ -174,22 +172,74 @@ public class SingleFileShow extends Activity {
     }
 
     public void plotData() {
-//        String inputPath = "mnt/sdcard/download/" + name;
-//        AssetManager assetManager = getAssets();
-//        InputStream input;
         try {
-//            input = assetManager.open(inputPath);
-//            int size = input.available();
-//            byte[] buffer = new byte[size];
-//            input.read(buffer);
-//            input.close();
-//            String text = new String(buffer);
             Intent intent = new Intent(SingleFileShow.this,PlotChart.class);
             intent.putExtra("FileName",name);
             startActivity(intent);
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private class ans extends AsyncTask<Void,Void,String> {
+        private ProgressDialog mProgressDialog;
+        @Override
+        protected String doInBackground(Void... params) {
+            Double ans=null;
+            String ss=null;
+            try{
+
+                HttpClient httpclient = new DefaultHttpClient();
+
+
+                HttpPost httppost = new HttpPost("https://mecg.herokuapp.com/analyse");
+                MultipartEntity mpEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
+                if (file !=null) {
+                    File file = new File("/storage/sdcard0/download/"+name);
+                    Log.d("EDIT USER PROFILE", "UPLOAD: file length = " + file.length());
+                    Log.d("EDIT USER PROFILE", "UPLOAD: file exist = " + file.exists());
+                    mpEntity.addPart("file", new FileBody(file));
+
+
+                }
+                httppost.setEntity(mpEntity);
+
+                HttpResponse response = httpclient.execute(httppost);
+                String result = EntityUtils.toString(response.getEntity());
+
+                return result;
+            }
+            catch(IOException e){ return null;}
+
+        }
+
+        @Override
+        protected void onPreExecute() {
+            mProgressDialog = new ProgressDialog(SingleFileShow.this){
+                @Override
+                public boolean onKeyDown(int keyCode, KeyEvent event) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK) {
+                        mAns.cancel(true);
+                        this.dismiss();
+                        onPostResume();
+                        return true;
+                    }
+                    return super.onKeyDown(keyCode, event);
+                }};
+            mProgressDialog.setTitle("Analyzing Signal");
+            mProgressDialog.setMessage("Analyzing...");
+            mProgressDialog.setIndeterminate(false);
+            mProgressDialog.setCancelable(false);
+            mProgressDialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(String s){
+            mProgressDialog.dismiss();
+            Intent i = new Intent(SingleFileShow.this,AnalysisResult.class);
+            i.putExtra("result",s);
+            startActivity(i);
         }
     }
 

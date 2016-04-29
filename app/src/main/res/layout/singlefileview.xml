@@ -58,4 +58,12 @@
         android:layout_below="@+id/btnDownload"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Analyse"
+        android:id="@+id/btnAnalyse"
+        android:layout_below="@+id/btnPlot"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp" />
 </RelativeLayout>
