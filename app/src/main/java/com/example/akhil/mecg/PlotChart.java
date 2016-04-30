@@ -180,7 +180,7 @@ public class PlotChart extends Activity implements OnChartValueSelectedListener{
             int[] color = new int[set.getEntryCount()];
             for(int i=0;i<color.length;i++){
                 if(max_pos.contains(i))
-                    color[i] = Color.GREEN;
+                    color[i] = Color.RED;
                 else
                     color[i] = ColorTemplate.getHoloBlue();
             }
